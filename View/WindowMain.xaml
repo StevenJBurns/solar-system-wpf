@@ -1,0 +1,678 @@
+﻿<Window	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:p="clr-namespace:Petzold.Media3D;assembly=Petzold.Media3D"
+				x:Class="SJB.WPF3D.WindowMain" Title="WPF-3D Planets"
+				WindowStartupLocation="CenterScreen"				
+				Height="600" MinHeight="192"
+				Width="800" MinWidth="256"
+				Background="Black">
+	
+	<Window.Resources>
+		<p:SphereMesh x:Key="SphereMeshSun"	    Stacks="64" Slices="64" Radius="4.00" />
+		<p:SphereMesh x:Key="SphereMeshMercury"	Stacks="64" Slices="64" Radius="0.75" />
+		<p:SphereMesh x:Key="SphereMeshVenus"   Stacks="64" Slices="64" Radius="0.90" />
+		<p:SphereMesh x:Key="SphereMeshEarth"   Stacks="72" Slices="72" Radius="1.00" />
+		<p:SphereMesh x:Key="SphereMeshMars"    Stacks="64" Slices="64" Radius="0.85" />
+		<p:SphereMesh x:Key="SphereMeshJupiter" Stacks="64" Slices="64" Radius="2.50" />
+		<p:SphereMesh x:Key="SphereMeshSaturn"  Stacks="64" Slices="64" Radius="2.50" />
+		<p:SphereMesh x:Key="SphereMeshUranus"  Stacks="64" Slices="64" Radius="1.80" />
+		<p:SphereMesh x:Key="SphereMeshNeptune" Stacks="64" Slices="64" Radius="1.40" />
+
+		<ImageBrush x:Key="TextureMercury" ImageSource="..\Resources\TextureMercury.jpg" />
+		<ImageBrush x:Key="TextureVenus" ImageSource="..\Resources\TextureVenus.jpg" />
+		<ImageBrush x:Key="TextureEarth" ImageSource="..\Resources\TextureEarth.jpg" />
+		<ImageBrush x:Key="TextureMars" ImageSource="..\Resources\TextureMars.jpg" />
+		<ImageBrush x:Key="TextureJupiter" ImageSource="..\Resources\TextureJupiter.jpg" />
+		<ImageBrush x:Key="TextureSaturn" ImageSource="..\Resources\TextureSaturn.jpg" />
+		<ImageBrush x:Key="TextureUranus" ImageSource="..\Resources\TextureUranus.jpg" />
+		<ImageBrush x:Key="TextureNeptune" ImageSource="..\Resources\TextureNeptune.jpg" />
+	</Window.Resources>
+	<Window.Triggers>
+		<EventTrigger RoutedEvent="Window.Loaded">
+			<BeginStoryboard>
+				<Storyboard TargetProperty="Angle">
+					<DoubleAnimation Storyboard.TargetName="RotateMercury"
+													 From="0" To="360" Duration="00:00:16.00" RepeatBehavior="Forever" />
+					<DoubleAnimation Storyboard.TargetName="RotationMercury"
+													 From="0" To="360" Duration="00:00:16.00" RepeatBehavior="Forever" />
+					<DoubleAnimation Storyboard.TargetName="RotateVenus"
+													 From="0" To="360" Duration="00:00:40.00" RepeatBehavior="Forever" />
+					<DoubleAnimation Storyboard.TargetName="RotationVenus"
+													 From="0" To="360" Duration="00:00:40.00" RepeatBehavior="Forever" />
+					<DoubleAnimation Storyboard.TargetName="RotateEarth"
+													 From="0" To="360" Duration="00:00:56.00" RepeatBehavior="Forever" />
+					<DoubleAnimation Storyboard.TargetName="RotationEarth"
+													 From="0" To="360" Duration="00:00:56.00" RepeatBehavior="Forever" />
+					<DoubleAnimation Storyboard.TargetName="RotateMars"
+													 From="0" To="360" Duration="00:00:40.00" RepeatBehavior="Forever" />
+					<DoubleAnimation Storyboard.TargetName="RotationMars"
+													 From="0" To="360" Duration="00:01:12.00" RepeatBehavior="Forever" />
+					<DoubleAnimation Storyboard.TargetName="RotateJupiter"
+													 From="0" To="360" Duration="00:00:48" RepeatBehavior="Forever" />
+					<DoubleAnimation Storyboard.TargetName="RotationJupiter"
+													 From="0" To="360" Duration="00:01:30" RepeatBehavior="Forever" />
+					<DoubleAnimation Storyboard.TargetName="RotateSaturn"
+													 From="0" To="360" Duration="00:00:56.00" RepeatBehavior="Forever" />
+					<DoubleAnimation Storyboard.TargetName="RotationSaturn"
+													 From="0" To="360" Duration="00:02:00.00" RepeatBehavior="Forever" />
+					<DoubleAnimation Storyboard.TargetName="RotateUranus"
+													 From="0" To="360" Duration="00:01:04.00" RepeatBehavior="Forever" />
+					<DoubleAnimation Storyboard.TargetName="RotationUranus"
+													 From="0" To="360" Duration="00:02:30.00" RepeatBehavior="Forever" />
+					<DoubleAnimation Storyboard.TargetName="RotateNeptune"
+													 From="0" To="360" Duration="00:01:12.00" RepeatBehavior="Forever" />
+					<DoubleAnimation Storyboard.TargetName="RotationNeptune"
+													 From="0" To="360" Duration="00:03:00.00" RepeatBehavior="Forever" />
+				</Storyboard>
+			</BeginStoryboard>
+		</EventTrigger>
+		<EventTrigger SourceName="btnSun" RoutedEvent="Button.Click">
+			<BeginStoryboard>
+				<Storyboard Storyboard.TargetName="CamAxisAngleRotate" TargetProperty="Angle">
+					<DoubleAnimation To="360" Duration="00:00:03.00">
+						<DoubleAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</DoubleAnimation.EasingFunction>
+					</DoubleAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="LookDirection"
+														 To="0 -1 0" Duration="00:00:01.00" BeginTime="00:00:01.00">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="UpDirection"
+														 To="0 0 1" Duration="00:00:03.00" BeginTime="00:00:01.00">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<Point3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="Position"
+														Duration="00:00:03.00" To="0 256 0">
+						<Point3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Point3DAnimation.EasingFunction>
+					</Point3DAnimation>
+				</Storyboard>
+			</BeginStoryboard> 
+		</EventTrigger>
+		<EventTrigger SourceName="btnMercury" RoutedEvent="Button.Click">
+			<BeginStoryboard>
+				<Storyboard>
+					<Point3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="Position"
+														Duration="00:00:02.00" RepeatBehavior="1x" To="4 0 0">
+						<Point3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Point3DAnimation.EasingFunction>
+					</Point3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="LookDirection"
+														 Duration="00:00:02.00" RepeatBehavior="1x" To="1 0 0">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="UpDirection"
+														 Duration="00:00:02.00" RepeatBehavior="1x" To="0 1 0">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<DoubleAnimation Storyboard.TargetName="CamAxisAngleRotate" Storyboard.TargetProperty="Angle"
+													 Duration="00:00:01.00" BeginTime="00:00:00.00" RepeatBehavior="1x" To="{Binding ElementName=RotationMercury, Path=Angle}">
+						<DoubleAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</DoubleAnimation.EasingFunction>
+					</DoubleAnimation>
+					<DoubleAnimation Storyboard.TargetName="CamAxisAngleRotate" Storyboard.TargetProperty="Angle"
+													 Duration="00:00:16.00" BeginTime="00:00:00.00" RepeatBehavior="Forever" By="360" AutoReverse="False">
+						
+					</DoubleAnimation>
+				</Storyboard>
+			</BeginStoryboard>
+		</EventTrigger>
+		<EventTrigger SourceName="btnVenus" RoutedEvent="Button.Click">
+			<BeginStoryboard>
+				<Storyboard>
+					<Point3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="Position"
+														Duration="00:00:02.00" RepeatBehavior="1x" To="12 00 00">
+						<Point3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Point3DAnimation.EasingFunction>
+					</Point3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="LookDirection"
+														 Duration="00:00:02.00" RepeatBehavior="1x" To="1 0 0">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="UpDirection"
+														 Duration="00:00:02.00" RepeatBehavior="1x" To="0 1 0">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<DoubleAnimation Storyboard.TargetName="CamAxisAngleRotate" Storyboard.TargetProperty="Angle"
+													 Duration="00:00:01.00" BeginTime="00:00:00.00" RepeatBehavior="1x" To="{Binding ElementName=RotationVenus, Path=Angle}">
+						<DoubleAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</DoubleAnimation.EasingFunction>
+					</DoubleAnimation>
+					<DoubleAnimation Storyboard.TargetName="CamAxisAngleRotate" Storyboard.TargetProperty="Angle"
+													 Duration="00:00:40.00" BeginTime="00:00:00.00" RepeatBehavior="Forever" By="360" AutoReverse="False">
+
+					</DoubleAnimation>
+				</Storyboard>
+			</BeginStoryboard>
+		</EventTrigger>
+		<EventTrigger SourceName="btnEarth" RoutedEvent="Button.Click">
+			<BeginStoryboard>
+				<Storyboard>
+					<Point3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="Position"
+														Duration="00:00:02.00" RepeatBehavior="1x" To="18 00 00">
+						<Point3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Point3DAnimation.EasingFunction>
+					</Point3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="LookDirection"
+														 Duration="00:00:02.00" RepeatBehavior="1x" To="1 0 0">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="UpDirection"
+														 Duration="00:00:02.00" RepeatBehavior="1x" To="0 1 0">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<DoubleAnimation Storyboard.TargetName="CamAxisAngleRotate" Storyboard.TargetProperty="Angle"
+													 Duration="00:00:01.00" BeginTime="00:00:00.00" RepeatBehavior="1x" To="{Binding ElementName=RotationEarth, Path=Angle}">
+						<DoubleAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</DoubleAnimation.EasingFunction>
+					</DoubleAnimation>
+					<DoubleAnimation Storyboard.TargetName="CamAxisAngleRotate" Storyboard.TargetProperty="Angle"
+													 Duration="00:00:56.00" BeginTime="00:00:00.00" RepeatBehavior="Forever" By="360" AutoReverse="False">
+
+					</DoubleAnimation>
+				</Storyboard>
+			</BeginStoryboard>
+		</EventTrigger>
+		<EventTrigger SourceName="btnMars" RoutedEvent="Button.Click">
+			<BeginStoryboard>
+				<Storyboard>
+					<Point3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="Position"
+														Duration="00:00:02.00" RepeatBehavior="1x" To="28 0 0">
+						<Point3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Point3DAnimation.EasingFunction>
+					</Point3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="LookDirection"
+														 Duration="00:00:02.00" RepeatBehavior="1x" To="1 0 0">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="UpDirection"
+														 Duration="00:00:02.00" RepeatBehavior="1x" To="0 1 0">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<DoubleAnimation Storyboard.TargetName="CamAxisAngleRotate" Storyboard.TargetProperty="Angle"
+													 Duration="00:00:01.00" BeginTime="00:00:00.00" RepeatBehavior="1x" To="{Binding ElementName=RotationMars, Path=Angle}">
+						<DoubleAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</DoubleAnimation.EasingFunction>
+					</DoubleAnimation>
+					<DoubleAnimation Storyboard.TargetName="CamAxisAngleRotate" Storyboard.TargetProperty="Angle"
+													 Duration="00:01:12.00" BeginTime="00:00:00.00" RepeatBehavior="Forever" By="360" AutoReverse="False">
+
+					</DoubleAnimation>
+				</Storyboard>
+			</BeginStoryboard>
+		</EventTrigger>
+		<EventTrigger SourceName="btnJupiter" RoutedEvent="Button.Click">
+			<BeginStoryboard>
+				<Storyboard>
+					<Point3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="Position"
+														Duration="00:00:02.00" RepeatBehavior="1x" To="40 0 0">
+						<Point3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Point3DAnimation.EasingFunction>
+					</Point3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="LookDirection"
+														 Duration="00:00:02.00" RepeatBehavior="1x" To="1 0 0">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="UpDirection"
+														 Duration="00:00:02.00" RepeatBehavior="1x" To="0 1 0">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<DoubleAnimation Storyboard.TargetName="CamAxisAngleRotate" Storyboard.TargetProperty="Angle"
+													 Duration="00:00:01.00" BeginTime="00:00:00.00" RepeatBehavior="1x" To="{Binding ElementName=RotationJupiter, Path=Angle}">
+						<DoubleAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</DoubleAnimation.EasingFunction>
+					</DoubleAnimation>
+					<DoubleAnimation Storyboard.TargetName="CamAxisAngleRotate" Storyboard.TargetProperty="Angle"
+													 Duration="00:01:30.00" BeginTime="00:00:00.00" RepeatBehavior="Forever" By="360" AutoReverse="False">
+
+					</DoubleAnimation>
+				</Storyboard>
+			</BeginStoryboard>
+		</EventTrigger>
+		<EventTrigger SourceName="btnSaturn" RoutedEvent="Button.Click">
+			<BeginStoryboard>
+				<Storyboard>
+					<Point3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="Position"
+														Duration="00:00:02.00" RepeatBehavior="1x" To="56 0 0">
+						<Point3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Point3DAnimation.EasingFunction>
+					</Point3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="LookDirection"
+														 Duration="00:00:02.00" RepeatBehavior="1x" To="1 0 0">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="UpDirection"
+														 Duration="00:00:02.00" RepeatBehavior="1x" To="0 1 0">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<DoubleAnimation Storyboard.TargetName="CamAxisAngleRotate" Storyboard.TargetProperty="Angle"
+													 Duration="00:00:01.00" BeginTime="00:00:00.00" RepeatBehavior="1x" To="{Binding ElementName=RotationSaturn, Path=Angle}">
+						<DoubleAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</DoubleAnimation.EasingFunction>
+					</DoubleAnimation>
+					<DoubleAnimation Storyboard.TargetName="CamAxisAngleRotate" Storyboard.TargetProperty="Angle"
+													 Duration="00:02:00.00" BeginTime="00:00:00.00" RepeatBehavior="Forever" By="360" AutoReverse="False">
+
+					</DoubleAnimation>
+				</Storyboard>
+			</BeginStoryboard>
+		</EventTrigger>
+		<EventTrigger SourceName="btnUranus" RoutedEvent="Button.Click">
+			<BeginStoryboard>
+				<Storyboard>
+					<Point3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="Position"
+														Duration="00:00:02.00" RepeatBehavior="1x" To="90 0 0">
+						<Point3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Point3DAnimation.EasingFunction>
+					</Point3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="LookDirection"
+														 Duration="00:00:02.00" RepeatBehavior="1x" To="1 0 0">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="UpDirection"
+														 Duration="00:00:02.00" RepeatBehavior="1x" To="0 1 0">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<DoubleAnimation Storyboard.TargetName="CamAxisAngleRotate" Storyboard.TargetProperty="Angle"
+													 Duration="00:00:01.00" BeginTime="00:00:00.00" RepeatBehavior="1x" To="{Binding ElementName=RotationUranus, Path=Angle}">
+						<DoubleAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</DoubleAnimation.EasingFunction>
+					</DoubleAnimation>
+					<DoubleAnimation Storyboard.TargetName="CamAxisAngleRotate" Storyboard.TargetProperty="Angle"
+													 Duration="00:02:30.00" BeginTime="00:00:00.00" RepeatBehavior="Forever" By="360" AutoReverse="False">
+
+					</DoubleAnimation>
+				</Storyboard>
+			</BeginStoryboard>
+		</EventTrigger>
+		<EventTrigger SourceName="btnNeptune" RoutedEvent="Button.Click">
+			<BeginStoryboard>
+				<Storyboard>
+					<Point3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="Position"
+														Duration="00:00:02.00" RepeatBehavior="1x" To="120 0 0">
+						<Point3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Point3DAnimation.EasingFunction>
+					</Point3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="LookDirection"
+														 Duration="00:00:02.00" RepeatBehavior="1x" To="1 0 0">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<Vector3DAnimation Storyboard.TargetName="cam" Storyboard.TargetProperty="UpDirection"
+														 Duration="00:00:02.00" RepeatBehavior="1x" To="0 1 0">
+						<Vector3DAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</Vector3DAnimation.EasingFunction>
+					</Vector3DAnimation>
+					<DoubleAnimation Storyboard.TargetName="CamAxisAngleRotate" Storyboard.TargetProperty="Angle"
+													 Duration="00:00:01.00" BeginTime="00:00:00.00" RepeatBehavior="1x" To="{Binding ElementName=RotationNeptune, Path=Angle}">
+						<DoubleAnimation.EasingFunction>
+							<QuadraticEase EasingMode="EaseInOut" />
+						</DoubleAnimation.EasingFunction>
+					</DoubleAnimation>
+					<DoubleAnimation Storyboard.TargetName="CamAxisAngleRotate" Storyboard.TargetProperty="Angle"
+													 Duration="00:03:00.00" BeginTime="00:00:00.00" RepeatBehavior="Forever" By="360" AutoReverse="False">
+
+					</DoubleAnimation>
+				</Storyboard>
+			</BeginStoryboard>
+		</EventTrigger>
+	</Window.Triggers>
+	
+	<Grid Background="Black">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="96" />
+			<ColumnDefinition Width="100*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="100*" />
+		</Grid.RowDefinitions>
+		<Border Grid.Column="0" Margin="4" CornerRadius="4" BorderThickness="2">
+			<Border.Background>
+				<LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
+					<GradientStop Offset="0.0" Color="DarkBlue" />
+					<GradientStop Offset="1.0" Color="LightGray" />
+				</LinearGradientBrush>
+			</Border.Background>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />					
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="100*" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<StackPanel Margin="4" HorizontalAlignment="Stretch" ButtonBase.Click="ButtonClick_Planet">
+					<StackPanel.Resources>
+						<Style TargetType="Button">
+							<Setter Property="Margin" Value="01" />
+							<Setter Property="Height" Value="22" />
+						</Style>
+					</StackPanel.Resources>
+					<Button x:Name="btnSun">Centered</Button>
+					<Button x:Name="btnMercury">Mercury</Button>
+					<Button x:Name="btnVenus">Venus</Button>
+					<Button x:Name="btnEarth">Earth</Button>
+					<Button x:Name="btnMars">Mars</Button>
+					<Button x:Name="btnJupiter">Jupiter</Button>
+					<Button x:Name="btnSaturn">Saturn</Button>
+					<Button x:Name="btnUranus">Uranus</Button>
+					<Button x:Name="btnNeptune">Neptune</Button>
+				</StackPanel>
+				<Button Grid.Row="1" Margin="4,8" HorizontalAlignment="Stretch" Click="ButtonClick_About">About...</Button>
+			</Grid>
+		</Border>
+		<Viewport3D x:Name="V3D" Grid.Column="1" ClipToBounds="True" IsHitTestVisible="False">
+			<Viewport3D.Camera>
+				<PerspectiveCamera x:Name="cam" Position="000 256 000" LookDirection="0 -1 0" UpDirection="1 0 0">
+					<PerspectiveCamera.Transform>
+						<Transform3DGroup>
+							<RotateTransform3D x:Name="CamRotateTransform">
+								<RotateTransform3D.Rotation>
+									<AxisAngleRotation3D x:Name="CamAxisAngleRotate" />
+								</RotateTransform3D.Rotation>
+							</RotateTransform3D>
+						</Transform3DGroup>
+					</PerspectiveCamera.Transform>
+				</PerspectiveCamera>
+			</Viewport3D.Camera>
+			<ModelVisual3D x:Name="Lighting">
+				<ModelVisual3D.Content>
+					<Model3DGroup>
+						<PointLight Position="0 0 0" Color="White" />
+						<SpotLight Position="0 128 0" Color="White" Direction="0 -1 0" InnerConeAngle="0.0" OuterConeAngle="12" Range="512" />
+						<AmbientLight Color="#080808" />
+					</Model3DGroup>
+				</ModelVisual3D.Content>
+			</ModelVisual3D>
+			<ModelVisual3D x:Name="Sun">
+				<ModelVisual3D.Content>
+					<Model3DGroup>
+						<GeometryModel3D Geometry="{Binding Source={StaticResource SphereMeshSun}, Path=Geometry}">
+							<GeometryModel3D.Material>
+								<MaterialGroup>
+									<DiffuseMaterial Brush="White" />
+									<EmissiveMaterial Brush="Yellow" />
+								</MaterialGroup>
+							</GeometryModel3D.Material>
+						</GeometryModel3D>
+					</Model3DGroup>
+				</ModelVisual3D.Content>
+			</ModelVisual3D>
+			<ModelVisual3D x:Name="Mercury">
+				<ModelVisual3D.Content>
+					<Model3DGroup>
+						<GeometryModel3D Geometry="{Binding Source={StaticResource SphereMeshMercury}, Path=Geometry}">
+							<GeometryModel3D.Material>
+								<DiffuseMaterial Brush="{StaticResource TextureMercury}" />
+							</GeometryModel3D.Material>
+							<GeometryModel3D.Transform>
+								<RotateTransform3D>
+									<RotateTransform3D.Rotation>
+										<AxisAngleRotation3D x:Name="RotateMercury" Axis="00 01 00" />
+									</RotateTransform3D.Rotation>
+								</RotateTransform3D>
+							</GeometryModel3D.Transform>
+						</GeometryModel3D>
+					</Model3DGroup>
+				</ModelVisual3D.Content>				
+				<ModelVisual3D.Transform>
+					<Transform3DGroup>
+						<TranslateTransform3D OffsetX="8" />
+						<RotateTransform3D>
+							<RotateTransform3D.Rotation>
+								<AxisAngleRotation3D x:Name="RotationMercury" />
+							</RotateTransform3D.Rotation>
+						</RotateTransform3D>
+					</Transform3DGroup>
+				</ModelVisual3D.Transform>
+			</ModelVisual3D>
+			<ModelVisual3D x:Name="Venus">
+				<ModelVisual3D.Content>
+					<Model3DGroup>
+						<GeometryModel3D Geometry="{Binding Source={StaticResource SphereMeshVenus}, Path=Geometry}">
+							<GeometryModel3D.Material>
+								<DiffuseMaterial Brush="{StaticResource TextureVenus}" />
+							</GeometryModel3D.Material>
+							<GeometryModel3D.Transform>
+								<RotateTransform3D>
+									<RotateTransform3D.Rotation>
+										<AxisAngleRotation3D x:Name="RotateVenus" Axis="00 01 00" />
+									</RotateTransform3D.Rotation>
+								</RotateTransform3D>
+							</GeometryModel3D.Transform>
+						</GeometryModel3D>
+					</Model3DGroup>
+				</ModelVisual3D.Content>
+				<ModelVisual3D.Transform>
+					<Transform3DGroup>
+						<TranslateTransform3D OffsetX="16" />
+						<RotateTransform3D>
+							<RotateTransform3D.Rotation>
+								<AxisAngleRotation3D x:Name="RotationVenus" />
+							</RotateTransform3D.Rotation>
+						</RotateTransform3D>
+					</Transform3DGroup>
+				</ModelVisual3D.Transform>
+			</ModelVisual3D>
+			<ModelVisual3D x:Name="Earth">
+				<ModelVisual3D.Content>
+					<Model3DGroup>
+						<GeometryModel3D Geometry="{Binding Source={StaticResource SphereMeshEarth}, Path=Geometry}">
+							<GeometryModel3D.Material>
+								<DiffuseMaterial Brush="{StaticResource TextureEarth}" />
+							</GeometryModel3D.Material>
+							<GeometryModel3D.Transform>
+								<RotateTransform3D>
+									<RotateTransform3D.Rotation>
+										<AxisAngleRotation3D x:Name="RotateEarth" Axis="00 01 00" />
+									</RotateTransform3D.Rotation>
+								</RotateTransform3D>
+							</GeometryModel3D.Transform>
+						</GeometryModel3D>
+					</Model3DGroup>
+				</ModelVisual3D.Content>
+				<ModelVisual3D.Transform>
+					<Transform3DGroup>
+						<TranslateTransform3D OffsetX="24" />
+						<RotateTransform3D>
+							<RotateTransform3D.Rotation>
+								<AxisAngleRotation3D x:Name="RotationEarth" />
+							</RotateTransform3D.Rotation>
+						</RotateTransform3D>
+					</Transform3DGroup>
+				</ModelVisual3D.Transform>
+			</ModelVisual3D>
+			<ModelVisual3D x:Name="Mars">
+				<ModelVisual3D.Content>
+					<Model3DGroup>
+						<GeometryModel3D Geometry="{Binding Source={StaticResource SphereMeshMars}, Path=Geometry}">
+							<GeometryModel3D.Material>
+								<DiffuseMaterial Brush="{StaticResource TextureMars}" />
+							</GeometryModel3D.Material>
+							<GeometryModel3D.Transform>
+								<RotateTransform3D>
+									<RotateTransform3D.Rotation>
+										<AxisAngleRotation3D x:Name="RotateMars" />
+									</RotateTransform3D.Rotation>
+								</RotateTransform3D>
+							</GeometryModel3D.Transform>
+						</GeometryModel3D>
+					</Model3DGroup>
+				</ModelVisual3D.Content>
+				<ModelVisual3D.Transform>
+					<Transform3DGroup>
+						<TranslateTransform3D OffsetX="32" />
+						<RotateTransform3D>
+							<RotateTransform3D.Rotation>
+								<AxisAngleRotation3D x:Name="RotationMars" />
+							</RotateTransform3D.Rotation>
+						</RotateTransform3D>
+					</Transform3DGroup>
+				</ModelVisual3D.Transform>
+			</ModelVisual3D>
+			<ModelVisual3D x:Name="Jupiter">
+				<ModelVisual3D.Content>
+					<Model3DGroup>
+						<GeometryModel3D Geometry="{Binding Source={StaticResource SphereMeshJupiter}, Path=Geometry}">
+							<GeometryModel3D.Material>
+								<DiffuseMaterial Brush="{StaticResource TextureJupiter}" />
+							</GeometryModel3D.Material>
+							<GeometryModel3D.Transform>
+								<RotateTransform3D>
+									<RotateTransform3D.Rotation>
+										<AxisAngleRotation3D x:Name="RotateJupiter" Axis="00 01 00" />
+									</RotateTransform3D.Rotation>
+								</RotateTransform3D>
+							</GeometryModel3D.Transform>
+						</GeometryModel3D>
+					</Model3DGroup>
+				</ModelVisual3D.Content>
+				<ModelVisual3D.Transform>
+					<Transform3DGroup>
+						<TranslateTransform3D OffsetX="48" />
+						<RotateTransform3D>
+							<RotateTransform3D.Rotation>
+								<AxisAngleRotation3D x:Name="RotationJupiter" />
+							</RotateTransform3D.Rotation>
+						</RotateTransform3D>
+					</Transform3DGroup>
+				</ModelVisual3D.Transform>
+			</ModelVisual3D>
+			<ModelVisual3D x:Name="Saturn">
+				<ModelVisual3D.Content>
+					<Model3DGroup>
+						<GeometryModel3D Geometry="{Binding Source={StaticResource SphereMeshSaturn}, Path=Geometry}">
+							<GeometryModel3D.Material>
+								<DiffuseMaterial Brush="{StaticResource TextureSaturn}" />
+							</GeometryModel3D.Material>
+							<GeometryModel3D.Transform>
+								<RotateTransform3D>
+									<RotateTransform3D.Rotation>
+										<AxisAngleRotation3D x:Name="RotateSaturn" Axis="00 01 00" />
+									</RotateTransform3D.Rotation>
+								</RotateTransform3D>
+							</GeometryModel3D.Transform>
+						</GeometryModel3D>
+					</Model3DGroup>
+				</ModelVisual3D.Content>
+				<ModelVisual3D.Transform>
+					<Transform3DGroup>
+						<TranslateTransform3D OffsetX="64" />
+						<RotateTransform3D>
+							<RotateTransform3D.Rotation>
+								<AxisAngleRotation3D x:Name="RotationSaturn" />
+							</RotateTransform3D.Rotation>
+						</RotateTransform3D>
+					</Transform3DGroup>
+				</ModelVisual3D.Transform>
+			</ModelVisual3D>
+			<ModelVisual3D x:Name="Uranus">
+				<ModelVisual3D.Content>
+					<Model3DGroup>
+						<GeometryModel3D Geometry="{Binding Source={StaticResource SphereMeshUranus}, Path=Geometry}">
+							<GeometryModel3D.Material>
+								<DiffuseMaterial Brush="{StaticResource TextureUranus}" />
+							</GeometryModel3D.Material>
+							<GeometryModel3D.Transform>
+								<RotateTransform3D>
+									<RotateTransform3D.Rotation>
+										<AxisAngleRotation3D x:Name="RotateUranus" Axis="00 01 00" />
+									</RotateTransform3D.Rotation>
+								</RotateTransform3D>
+							</GeometryModel3D.Transform>
+						</GeometryModel3D>
+					</Model3DGroup>
+				</ModelVisual3D.Content>
+				<ModelVisual3D.Transform>
+					<Transform3DGroup>
+						<TranslateTransform3D OffsetX="96" />
+						<RotateTransform3D>
+							<RotateTransform3D.Rotation>
+								<AxisAngleRotation3D x:Name="RotationUranus" />
+							</RotateTransform3D.Rotation>
+						</RotateTransform3D>
+					</Transform3DGroup>
+				</ModelVisual3D.Transform>
+			</ModelVisual3D>
+			<ModelVisual3D x:Name="Neptune">
+				<ModelVisual3D.Content>
+					<Model3DGroup>
+						<GeometryModel3D Geometry="{Binding Source={StaticResource SphereMeshNeptune}, Path=Geometry}">
+							<GeometryModel3D.Material>
+								<DiffuseMaterial Brush="{StaticResource TextureNeptune}" />
+							</GeometryModel3D.Material>
+							<GeometryModel3D.Transform>
+								<RotateTransform3D>
+									<RotateTransform3D.Rotation>
+										<AxisAngleRotation3D x:Name="RotateNeptune" Axis="00 01 00" />
+									</RotateTransform3D.Rotation>
+								</RotateTransform3D>
+							</GeometryModel3D.Transform>
+						</GeometryModel3D>
+					</Model3DGroup>
+				</ModelVisual3D.Content>
+				<ModelVisual3D.Transform>
+					<Transform3DGroup>
+						<TranslateTransform3D OffsetX="128" />
+						<RotateTransform3D>
+							<RotateTransform3D.Rotation>
+								<AxisAngleRotation3D x:Name="RotationNeptune" />
+							</RotateTransform3D.Rotation>
+						</RotateTransform3D>
+					</Transform3DGroup>
+				</ModelVisual3D.Transform>
+			</ModelVisual3D>
+		</Viewport3D>	
+	</Grid>
+</Window>
